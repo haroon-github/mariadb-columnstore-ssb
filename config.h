@@ -47,6 +47,7 @@
  *   SYBASE     -- use Sybase dialect in QGEN
  *   TDAT       -- use Teradata dialect in QGEN
  */
+
 #ifndef pid_t
 #include <sys/types.h>
 #endif
@@ -184,4 +185,3 @@
 #ifndef DOUBLE_CAST
 #define DOUBLE_CAST (double)
 #endif /* DOUBLE_CAST */
-

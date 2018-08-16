@@ -224,7 +224,7 @@ int ld_supp    PROTO((supplier_t * supp, int mode));
 
 typedef struct
 {
-   long            datekey;
+   char            datekey[D_DATE_LEN+1];
    char            date[D_DATE_LEN+1];
    char            dayofweek[D_DAYWEEK_LEN+1] ;
    char            month[D_MONTH_LEN+1];

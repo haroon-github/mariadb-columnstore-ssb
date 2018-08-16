@@ -617,8 +617,8 @@ int gen_city(char *cityName, char *nationName){
 
 
 /*
-P_NAME is as long as 55 bytes in TPC-H, which is un¬reasonably large. 
-We reduce it to 22 by limiting to a concatena¬tion of two colors (see [TPC-H], pg 94). 
+P_NAME is as long as 55 bytes in TPC-H, which is unï¿½reasonably large. 
+We reduce it to 22 by limiting to a concatenaï¿½tion of two colors (see [TPC-H], pg 94). 
 We also add a new column named P_COLOR that could be used in queries where currently a 
 color must be chosen by substring from P_NAME.
 */
@@ -671,8 +671,8 @@ holiday holidays[]={
 };
 
 char * month_names[]={"January","February","March","April",
-                 "May","June","July","August",
-                 "September","October","November","December"};
+                 "May","June","July","Augest",
+                 "September","Octorber","November","December"};
 
 char * weekday_names[]={"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
 
@@ -700,8 +700,9 @@ mk_date(long index,date_t *d)
 
     sprintf(d->yearmonth,"%.3s%d",d->month,d->year);
     sprintf(d->date,"%s %d, %d",d->month,d->daynuminmonth,d->year);
-    
-    d->datekey = d->year*10000+d->monthnuminyear*100+ d->daynuminmonth; 
+
+    sprintf(d->datekey,"%02d-%02d-%02d",d->year,d->monthnuminyear,d->daynuminmonth);
+    //d->datekey = d->year*10000+d->monthnuminyear*100+ d->daynuminmonth;
 
     d->daynuminyear=(int)localTime->tm_yday+1;
     d->weeknuminyear = d->daynuminyear/7 + 1;

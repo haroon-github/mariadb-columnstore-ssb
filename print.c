@@ -141,11 +141,15 @@ dbg_print(int format, FILE *target, void *data, int len, int sep)
 		break;
 	}
 
-#ifdef EOL_HANDLING
-	if (sep)
-#endif /* EOL_HANDLING */
-	if (!columnar && (sep != -1))
-		fprintf(target, "%c", SEPARATOR);
+    if (sep)   fprintf(target, "%c", SEPARATOR);
+
+    /*
+	if (sep) {
+        if (!columnar && (sep != -1)) {
+            fprintf(target, "%c", SEPARATOR);
+        }
+    }
+     */
 	
 	return(0);
 }
@@ -168,7 +172,7 @@ static FILE *fp = NULL;
    PR_STR(fp, c->nation_name, C_NATION_NAME_LEN);
    PR_STR(fp, c->region_name, C_REGION_NAME_LEN);
    PR_STR(fp, c->phone, PHONE_LEN);
-   PR_STR(fp, c->mktsegment,MAXAGG_LEN);
+   PR_STR_LAST(fp, c->mktsegment,MAXAGG_LEN);
    PR_END(fp);
 
    return(0);
@@ -228,7 +232,7 @@ pr_order(order_t *o, int mode)
     PR_STR(fp_o, o->opriority, O_OPRIO_LEN);
     PR_STR(fp_o, o->clerk, O_CLRK_LEN);
     PR_INT(fp_o, o->spriority);
-    PR_VSTR_LAST(fp_o, o->comment, 
+    PR_VSTR(fp_o, o->comment,
        (columnar)?(long)(ceil(O_CMNT_LEN * V_STR_HGH)):o->clen);
     PR_END(fp_o);
 
@@ -277,7 +281,7 @@ pr_line(order_t *o, int mode)
 	PR_INT(fp_l, o->lineorders[i].supp_cost);
 	PR_INT(fp_l, o->lineorders[i].tax);
 	PR_STR(fp_l, o->lineorders[i].commit_date, DATE_LEN);
-	PR_STR(fp_l, o->lineorders[i].shipmode, O_SHIP_MODE_LEN);
+	PR_STR_LAST(fp_l, o->lineorders[i].shipmode, O_SHIP_MODE_LEN);
         PR_END(fp_l);
         }
 
@@ -370,7 +374,7 @@ pr_part(part_t *part, int mode)
     PR_VSTR(p_fp, part->type,
 	    (columnar)?(long)P_TYPE_LEN:part->tlen);
     PR_INT(p_fp, part->size);
-    PR_STR(p_fp, part->container, P_CNTR_LEN);
+    PR_STR_LAST(p_fp, part->container, P_CNTR_LEN);
     PR_END(p_fp);
     return(0);
 }
@@ -470,7 +474,7 @@ pr_supp(supplier_t *supp, int mode)
     PR_STR(fp, supp->city, CITY_FIX);
     PR_STR(fp, supp->nation_name, C_NATION_NAME_LEN);
     PR_STR(fp, supp->region_name, C_REGION_NAME_LEN);
-    PR_STR(fp, supp->phone, PHONE_LEN);
+    PR_STR_LAST(fp, supp->phone, PHONE_LEN);
     PR_END(fp);
 
     return(0);
@@ -656,7 +660,7 @@ int pr_date(date_t *d, int mode){
 	d_fp = print_prep(DATE, 0);
 
     PR_STRT(d_fp);
-    PR_INT(d_fp, d->datekey);
+    PR_STR(d_fp, d->datekey, D_DATE_LEN);
     PR_STR(d_fp, d->date,D_DATE_LEN);
     PR_STR(d_fp, d->dayofweek,D_DAYWEEK_LEN);
     PR_STR(d_fp, d->month,D_MONTH_LEN);
@@ -673,7 +677,7 @@ int pr_date(date_t *d, int mode){
     PR_STR(d_fp,d->lastdayinweekfl,2);
     PR_STR(d_fp,d->lastdayinmonthfl,2);
     PR_STR(d_fp,d->holidayfl,2);
-    PR_STR(d_fp,d->weekdayfl,2);
+    PR_STR_LAST(d_fp,d->weekdayfl,2);
 
     PR_END(d_fp);
     return(0);
@@ -982,7 +986,7 @@ vrf_region(code_t *c, int mode)
 int vrf_date(date_t * d, int mode)
 {
     VRF_STRT(DATE);
-    VRF_INT(DATE, d->datekey);
+    VRF_STR(DATE, d->datekey);
     VRF_STR(DATE, d->date);
     VRF_STR(DATE, d->dayofweek);
     VRF_STR(DATE, d->month);
