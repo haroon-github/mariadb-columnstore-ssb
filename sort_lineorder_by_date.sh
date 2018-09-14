@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 read -d '' awkScript << 'EOF'
 {if($6>1998) {print > "lineorder_1998.tbl"}
  else if ($6>1997) {print > "lineorder_1997.tbl"}
@@ -19,5 +19,5 @@ fi
 mv lineorder_1992.tbl lineorder_sorted.tbl
 for y in 1993 1994 1995 1996 1997 1998; do
   cat lineorder_$y.tbl >> lineorder_sorted.tbl
-  rm -f lineorder_$y.tbl
+  #rm -f lineorder_$y.tbl
 done

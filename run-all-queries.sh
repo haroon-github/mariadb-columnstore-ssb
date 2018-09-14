@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 MCS_DIR=/usr/local/mariadb/columnstore
 for i in queries/q*.sql; do
   echo "==== $i.sql"

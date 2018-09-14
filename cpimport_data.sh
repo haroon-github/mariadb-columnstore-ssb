@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 MCS_DIR=/usr/local/mariadb/columnstore
 $MCS_DIR/bin/cpimport ssb lineorder lineorder.tbl
 $MCS_DIR/bin/cpimport ssb part part.tbl
